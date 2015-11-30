@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <title>Project 3</title>
+ <meta charset="utf-8">
+ <style>
+canvas {
+ border: 3px #CCC solid;
+}
+</style>
+ <script>
+ 
+ var canvas;
+ var context;
+ var particles;
+ var shape;
+ var timer;
+ var timerRestart;
+ var starLength = 10;
+ var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+	
+	function init(){ 
+	//context.rotate((Math.PI * 1 / 10));
+	context.fillStyle = 'black'
+	context.font ='100px sans-serif';
+	
+		var text = 'La France reste forte! ';
+		var i = 1;
+		
+		function draw(){
+		context.fillText(text.substr(0,i),100,100);
+		i++
+		if( i < text.length){
+		requestAnimationFrame(draw);
+		}
+		}
+		requestAnimationFrame(draw);
+		
+}
+ function makeParticles() {
+	particles = [];
+	//shape = [];
+	for(var i = 0; i < 30; i++)
+	{
+		particles.push(new Particle());
+		//shape.push(new Shape());
+	}
+ }
+ function degreesToRadians(degrees) {
+	 return (degrees * Math.PI)/180;
+	 
+ }
+ function Particle()
+ {
+	
+	 this.x = canvas.width/2;
+	 this.y = canvas.height/2;
+	 this.vx = Math.random()*10-5;
+	 this.vy = Math.random()*10-5;
+	 var colors = ["red","blue","white"];
+	 this.color = colors[Math.floor(Math.random()*colors.length)];
+	 this.radius = 50;
+ }
+ function moveParticles() {
+  var img = document.getElementById("Paris");
+   
+	  
+	  context.globalCompositeOperation = "source-in";
+	  context.drawImage(img, 0, 0);
+	 
+	 context.globalCompositeOperation = "source-over";
+	 //for (var j 
+	 for(var i = 0; i < particles.length; i++)
+	 {
+		 var p = particles[i];
+		
+		
+		context.fillStyle = "p.color";
+		context.beginPath();
+		context.moveTo(91,96);
+		context.bezierCurveTo(p.x,p.y,87,99,87,101);
+		context.bezierCurveTo(p.x,p.y,88,106,91,106);
+		context.bezierCurveTo(p.x,p.y,95,103,95,101);
+		context.bezierCurveTo(p.x,p.y,94,96,91,96);
+		context.moveTo(103,96);
+		context.bezierCurveTo(p.x,p.y,99,99,99,101);
+		context.bezierCurveTo(p.x,p.y,100,106,103,106);
+		context.bezierCurveTo(p.x,p.y,107,103,107,101);
+		context.bezierCurveTo(p.x,p.y,106,96,103,96);
+		context.fill();
+		
+		
+		 context.beginPath(); 
+       context.moveTo(50,50);
+        context.lineTo(110,140);
+      context.lineTo(0,170); 
+     context.lineTo(110,200);
+      context.lineTo(40,300);  
+      context.lineTo(150,240);
+       context.lineTo(180,360);
+      context.lineTo(210,240);
+      context.lineTo(320,300);
+     context.lineTo(250,200);
+      context.lineTo(370,170);
+	  //context.lineTo(300,90);
+       context.closePath();
+	   context.fill();
+        context.stroke();
+ 
+		
+		
+		context.beginPath(); 
+		context.rect(p.x,p.y,70,70,40,40);
+		context.fillStyle = p.color;
+		context.fill();
+	
+		context.stroke();
+		context.beginPath();
+		context.moveTo(p.x,p.y);
+		context.moveTo(1280,720);
+		context.lineTo(1000,720);
+		context.lineTo(p.x+70,p.y+20);
+		context.closePath();
+		context.lineWidth = 5;
+		context.fillStyle = p.color;
+		context.fill();
+		
+		context.stroke(); 
+		 context.beginPath();
+		 context.arc(p.x, p.y, p.radius, 0, degreesToRadians(360), true);
+		 context.fillStyle = p.color;
+		 context.fill();
+		 context.stroke();
+		 p.x += p.vx;
+		 p.y += p.vy;
+		 if(p.x < -50) p.x = canvas.width+50;
+		 if(p.y < -50) p.y = canvas.height+50;
+		 if(p.x > canvas.width+50) p.x = -50;
+		 if(p.y > canvas.height+50) p.y = -50;
+		 p.radius -= 1;
+	 }
+	 
+	   
+ 
+ }
+ function clearScreen(color) {
+	
+	 context.clearRect(0, 0, canvas.width, canvas.height);
+	 context.fillStyle = p.color;
+	 context.fillRect(0, 0, canvas.width, canvas.height);
+ }
+ window.onload = function() {
+ 	 canvas = document.getElementById('canvas');
+	 context = canvas.getContext('2d');
+	 init(); 
+	 makeParticles();
+	 
+	 timer = setInterval(moveParticles, 100);
+	 timerRestart = setInterval(makeParticles, 4500);//only one function to be called makeParticles can call other functions
+ }
+</script>
+</head>
+<body>
+<h1 id='status'></h1>
+<img id="Paris" width="64" height="64
+" src="http://www.siwallpaperhd.com/wp-content/uploads/2015/05/beautiful_paris_city_desktop_backgrounds_7.jpg" alt="The Scream">
+	<canvas id="canvas" width="1280" height="720"></canvas>
+
+</body>
+</html>
