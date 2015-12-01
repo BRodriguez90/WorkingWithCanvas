@@ -14,6 +14,8 @@ canvas {
  var context;
  var particles;
  var shape;
+  var colors = ["red","blue","white"];
+	 this.color = colors[Math.floor(Math.random()*colors.length)];
  var timer;
  var timerRestart;
  var starLength = 10;
@@ -39,11 +41,11 @@ canvas {
 }
  function makeParticles() {
 	particles = [];
-	//shape = [];
+	
 	for(var i = 0; i < 30; i++)
 	{
 		particles.push(new Particle());
-		//shape.push(new Shape());
+		
 	}
  }
  function degreesToRadians(degrees) {
@@ -106,13 +108,6 @@ canvas {
        context.closePath();
 	   context.fill();
         context.stroke();
- 
-		
-		
-		context.beginPath(); 
-		context.rect(p.x,p.y,70,70,40,40);
-		context.fillStyle = p.color;
-		context.fill();
 	
 		context.stroke();
 		context.beginPath();
@@ -140,14 +135,43 @@ canvas {
 		 p.radius -= 1;
 	 }
 	 
-	   
+	 drawSquare();
  
  }
+ 
+ function drawSquare(){
+	x = Math.random()* 1280,
+    y = Math.random()* 720;
+	
+	context.beginPath(); 
+	context.rect(x,y,70,70,40,40);
+	context.fillStyle = 'color';
+	context.stroke();
+	context.fill();
+ };
+ 
+ function drawTriangle(){
+	x = Math.random()* 1280,
+    y = Math.random()* 720;
+ };
+ 
+ function drawStar(){
+	x = Math.random()* 1280,
+    y = Math.random()* 720;
+ };
+ 
  function clearScreen(color) {
 	
 	 context.clearRect(0, 0, canvas.width, canvas.height);
 	 context.fillStyle = p.color;
 	 context.fillRect(0, 0, canvas.width, canvas.height);
+	 
+	  if (x + dx > canvas.width || x + dx < 0)
+		dx = -dx;
+		if (y + dy > canvas.height || y + dy < 0)
+		dy = -dy;
+		x += dx;
+		y += dy;
  }
  window.onload = function() {
  	 canvas = document.getElementById('canvas');
